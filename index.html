@@ -15,22 +15,27 @@
 </head>
 
 <script>
-    function showSection(index) {
-        var sections = document.querySelectorAll('.education-section');
-        sections.forEach((section, i) => {
-            if (i === index) {
-                section.style.display = 'block';
-            } else {
-                section.style.display = 'none';
-            }
-        });
-    }
+    // JavaScript to handle filterable papers
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const paperItems = document.querySelectorAll('.paper-item');
 
-    // By default, show the first section
-    document.addEventListener("DOMContentLoaded", function() {
-        showSection(0);
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+
+                paperItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
     });
 </script>
+
 
 <body>
     <div id="mobile-menu-open" class="shadow-large">
@@ -131,74 +136,41 @@
     </div>
     <!-- End #experience -->
 
-    <!-- <div id="education">
-        <h2 class="heading">Education</h2>
-        <div class="education-block">
-            <h3>University of Ottawa</h3>
-            <span class="education-date">Sept 2016 - Sept 2017</span>
-            <h4>Bachelor of Science in Computer Science</h4>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in iaculis ex. Etiam volutpat laoreet urna. Morbi ut tortor nec nulla commodo malesuada sit amet vel lacus. Fusce eget efficitur libero. Morbi dapibus porta quam laoreet placerat.
-            </p>
-        </div>
-        <!-- End .education-block -->
 
-        <div class="education-block">
-            <h3>University of Ottawa</h3>
-            <span class="education-date">Sept 2016 - Sept 2017</span>
-            <h4>Bachelor of Science in Computer Science</h4>
-            <ul>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </li>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </li>
-                <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </li>
-            </ul>
-        </div>
-        <!-- End .education-block -->
-    </div> -->
-    <!-- End #education -->
 
-    <div id="education">
-        <h2 class="heading">Education</h2>
-        <div class="education-buttons">
-            <button onclick="showSection(0)">Section 1</button>
-            <button onclick="showSection(1)">Section 2</button>
+    <div id="papers">
+        <h2 class="heading">Papers</h2>
+        <div class="buttons">
+            <button class="filter-button" data-filter="all">All</button>
+            <button class="filter-button" data-filter="machine-learning">Machine Learning</button>
+            <button class="filter-button" data-filter="web-development">Web Development</button>
+            <button class="filter-button" data-filter="data-science">Data Science</button>
         </div>
-        <div class="education-section" id="section-0">
-            <div class="education-block">
-                <h3>University of Ottawa</h3>
-                <span class="education-date">Sept 2016 - Sept 2017</span>
-                <h4>Bachelor of Science in Computer Science</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in iaculis ex. Etiam volutpat laoreet urna. Morbi ut tortor nec nulla commodo malesuada sit amet vel lacus. Fusce eget efficitur libero. Morbi dapibus porta quam laoreet placerat.
-                </p>
+        <div class="paper-list">
+            <div class="paper-item" data-category="machine-learning">
+                <h3>Deep Learning Techniques</h3>
+                <p>Exploring various deep learning techniques for image recognition.</p>
             </div>
-        </div>
-
-        <div class="education-section" id="section-1">
-            <div class="education-block">
-                <h3>University of Ottawa</h3>
-                <span class="education-date">Sept 2016 - Sept 2017</span>
-                <h4>Bachelor of Science in Computer Science</h4>
-                <ul>
-                    <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                    <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                    <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                </ul>
+            <div class="paper-item" data-category="web-development">
+                <h3>Modern JavaScript Frameworks</h3>
+                <p>An analysis of the most popular JavaScript frameworks in 2023.</p>
             </div>
+            <div class="paper-item" data-category="data-science">
+                <h3>Data Analysis with Python</h3>
+                <p>Best practices for data analysis and visualization using Python.</p>
+            </div>
+            <!-- Add more paper items with relevant data-category attributes -->
         </div>
     </div>
+
+
+
+
+
+
+
+
+
 
 
 
