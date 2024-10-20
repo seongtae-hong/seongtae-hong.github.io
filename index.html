@@ -15,25 +15,36 @@
 </head>
 
 <script>
-    // JavaScript to handle filterable papers
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterButtons = document.querySelectorAll('.filter-button');
-        const paperItems = document.querySelectorAll('.paper-item');
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const paperItems = document.querySelectorAll('.paper-item');
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
+    let selectedFilters = {
+        year: 'all',
+        field: 'all',
+        location: 'all'
+    };
 
-                paperItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filterType = button.parentNode.querySelector('h3').innerText.toLowerCase().replace(' ', '-');
+            selectedFilters[filterType] = button.getAttribute('data-filter');
+
+            paperItems.forEach(item => {
+                const categories = item.getAttribute('data-category').split(' ');
+                const matchYear = selectedFilters.year === 'all' || categories.includes(selectedFilters.year);
+                const matchField = selectedFilters.field === 'all' || categories.includes(selectedFilters.field);
+                const matchLocation = selectedFilters.location === 'all' || categories.includes(selectedFilters.location);
+
+                if (matchYear && matchField && matchLocation) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         });
     });
+});
 </script>
 
 <body>
@@ -193,7 +204,61 @@
         </div>
     </div>
 
-
+    <div id="papers">
+	<h2 class="heading">Papers</h2>
+	    <div class="buttons">
+	        <!-- Year Filter -->
+	        <h3>Year</h3>
+	        <button class="filter-button" data-filter="all">All</button>
+	        <button class="filter-button" data-filter="2023">2023</button>
+	        <button class="filter-button" data-filter="2022">2022</button>
+	        <button class="filter-button" data-filter="2021">2021</button>
+	        <!-- Research Field Filter -->
+	        <h3>Research Field</h3>
+	        <button class="filter-button" data-filter="machine-learning">Machine Learning</button>
+	        <button class="filter-button" data-filter="web-development">Web Development</button>
+	        <button class="filter-button" data-filter="data-science">Data Science</button>
+	        <!-- Location Filter -->
+	        <h3>Location</h3>
+	        <button class="filter-button" data-filter="domestic">Domestic</button>
+	        <button class="filter-button" data-filter="international">International</button>
+	    </div>
+	    <div class="paper-list">
+	        <div class="education-block paper-item" data-category="machine-learning 2023 international">
+	            <h3>Deep Learning Techniques</h3>
+	            <span class="education-date">Published: 2023</span>
+	            <h4>Exploring various deep learning techniques for image recognition.</h4>
+	            <ul>
+	                <li>Overview of deep learning models and architectures</li>
+	                <li>Real-world applications of deep learning</li>
+	                <li>Case studies and analysis</li>
+	            </ul>
+	        </div>
+	        
+	        <div class="education-block paper-item" data-category="web-development 2022 domestic">
+	            <h3>Modern JavaScript Frameworks</h3>
+	            <span class="education-date">Published: 2022</span>
+	            <h4>An analysis of the most popular JavaScript frameworks in 2023.</h4>
+	            <ul>
+	                <li>Feature comparison of frameworks</li>
+	                <li>Performance benchmarks</li>
+	                <li>Best practices for using modern frameworks</li>
+	            </ul>
+	        </div>
+	        
+	        <div class="education-block paper-item" data-category="data-science 2021 international">
+	            <h3>Data Analysis with Python</h3>
+	            <span class="education-date">Published: 2021</span>
+	            <h4>Best practices for data analysis and visualization using Python.</h4>
+	            <ul>
+	                <li>Python libraries for data analysis</li>
+	                <li>Case study on data visualization</li>
+	                <li>Trends in data science</li>
+	            </ul>
+	        </div>
+	        <!-- Add more paper items as needed -->
+	    </div>
+	</div>
 
 
 
